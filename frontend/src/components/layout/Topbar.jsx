@@ -1,8 +1,8 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { Bell, Clock, Search } from 'lucide-react';
+import { Bell, Clock, Search, Menu } from 'lucide-react';
 
-const Topbar = () => {
+const Topbar = ({ onMenuClick }) => {
   const location = useLocation();
   
   // Format the path to a readable title
@@ -13,19 +13,23 @@ const Topbar = () => {
   };
 
   return (
-    <header className="h-16 bg-dark-bg border-b border-dark-border flex items-center justify-between px-6 z-10 shrink-0">
-      <div className="flex items-center gap-4">
-        <h2 className="text-lg font-semibold text-white">TrafficGuard AI</h2>
-        <span className="text-slate-500">/</span>
-        <span className="text-slate-300 text-sm">{getPageTitle()}</span>
-        <div className="ml-4 flex items-center gap-2 bg-emerald-950/30 text-emerald-400 px-3 py-1 rounded-full border border-emerald-900/50">
+    <header className="h-16 bg-dark-bg border-b border-dark-border flex items-center justify-between px-4 md:px-6 z-10 shrink-0">
+      <div className="flex items-center gap-2 md:gap-4">
+        <button className="md:hidden p-1 text-slate-400 hover:text-white" onClick={onMenuClick}>
+          <Menu size={20} />
+        </button>
+        <h2 className="text-base md:text-lg font-semibold text-white truncate">TrafficGuard</h2>
+        <span className="hidden sm:inline text-slate-500">/</span>
+        <span className="hidden sm:inline text-slate-300 text-sm truncate">{getPageTitle()}</span>
+        <div className="ml-1 md:ml-4 flex items-center gap-1.5 md:gap-2 bg-emerald-950/30 text-emerald-400 px-2 md:px-3 py-1 rounded-full border border-emerald-900/50">
           <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-          <span className="text-xs font-semibold tracking-wider">MONITORING ACTIVE</span>
+          <span className="text-[10px] md:text-xs font-semibold tracking-wider hidden sm:inline">MONITORING ACTIVE</span>
+          <span className="text-[10px] md:text-xs font-semibold tracking-wider sm:hidden">ACTIVE</span>
         </div>
       </div>
 
-      <div className="flex items-center gap-5 text-slate-400">
-        <div className="relative">
+      <div className="flex items-center gap-3 md:gap-5 text-slate-400">
+        <div className="relative hidden md:block">
           <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" />
           <input 
             type="text" 
@@ -33,11 +37,14 @@ const Topbar = () => {
             className="bg-dark-sidebar border border-dark-border rounded-lg pl-10 pr-4 py-1.5 text-sm text-white focus:outline-none focus:border-slate-500 w-64 placeholder-slate-500"
           />
         </div>
+        <button className="md:hidden hover:text-white transition-colors">
+          <Search size={20} />
+        </button>
         <button className="relative hover:text-white transition-colors">
           <Bell size={20} />
           <span className="absolute -top-1 -right-1 w-2 h-2 bg-rose-500 rounded-full"></span>
         </button>
-        <button className="hover:text-white transition-colors">
+        <button className="hidden sm:block hover:text-white transition-colors">
           <Clock size={20} />
         </button>
         <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 border border-slate-600 cursor-pointer overflow-hidden opacity-90 hover:opacity-100 transition-opacity">

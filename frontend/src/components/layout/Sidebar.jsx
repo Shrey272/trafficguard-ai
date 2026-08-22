@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { LayoutDashboard, Video, Map as MapIcon, AlertTriangle, BarChart2, PlusSquare, Settings, Shield } from 'lucide-react';
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, setIsOpen }) => {
   const navItems = [
     { name: 'Dashboard', icon: LayoutDashboard, path: '/' },
     { name: 'Live Cameras', icon: Video, path: '/cameras' },
@@ -13,7 +13,15 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-64 bg-dark-sidebar border-r border-dark-border flex flex-col justify-between">
+    <>
+      {/* Mobile overlay */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-black/60 z-40 md:hidden"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+      <aside className={`fixed md:static inset-y-0 left-0 z-50 w-64 bg-dark-sidebar border-r border-dark-border flex flex-col justify-between transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}`}>
       <div>
         {/* Brand */}
         <div className="h-16 flex items-center px-6 border-b border-dark-border">
@@ -67,6 +75,7 @@ const Sidebar = () => {
         </NavLink>
       </div>
     </aside>
+    </>
   );
 };
 

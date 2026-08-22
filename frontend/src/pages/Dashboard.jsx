@@ -63,7 +63,7 @@ const Dashboard = () => {
               AI Vision Active
             </button>
           </div>
-          <div className="grid grid-cols-2 gap-4 flex-1">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
             <CameraFeed id="CAM-01" name="NH-48 Junction" imgSrc="/cam_highway.jpg" />
             <CameraFeed id="CAM-12" name="City Center" imgSrc="/cam_intersection.jpg" />
             <CameraFeed id="CAM-44" name="Metro Station" imgSrc="/cam_roundabout.jpg" />
