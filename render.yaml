@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: trafficguard-ai
+    env: docker
+    region: ohio
+    plan: free
+    dockerCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT"

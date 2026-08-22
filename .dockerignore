@@ -1,0 +1,9 @@
+node_modules/
+.git/
+venv/
+__pycache__/
+*.pyc
+.env
+.DS_Store
+frontend/dist/
+backend/trafficguard.db
