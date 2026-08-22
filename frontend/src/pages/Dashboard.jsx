@@ -19,7 +19,7 @@ const Dashboard = () => {
   const recentAlerts = incidents.slice(0, 5); // top 5 recent
 
   return (
-    <div className="flex flex-col gap-6 max-w-7xl mx-auto h-full">
+    <div className="flex flex-col gap-6 max-w-7xl mx-auto min-h-full">
       {/* Top Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <StatCard 
