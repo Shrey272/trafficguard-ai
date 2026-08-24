@@ -123,44 +123,7 @@ const Hospitals = () => {
         {/* Right Column - Resources */}
         <div className="flex flex-col gap-6">
           
-          {/* Bed Availability */}
-          <div className="bg-dark-panel border border-dark-border rounded-lg p-6">
-            <h3 className="text-white font-semibold flex items-center gap-2 mb-6">
-              <Bed size={20} className="text-indigo-400" /> Bed Availability
-            </h3>
-            
-            <div className="space-y-6">
-              <div>
-                <div className="flex justify-between text-xs font-bold tracking-wider mb-2">
-                  <span className="text-slate-300">TRAUMA / ICU</span>
-                  <span className="text-rose-400">2 / 10 AVAILABLE</span>
-                </div>
-                <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden flex">
-                  <div className="h-full bg-rose-400 rounded-full" style={{width: '20%'}}></div>
-                </div>
-              </div>
-              
-              <div>
-                <div className="flex justify-between text-xs font-bold tracking-wider mb-2">
-                  <span className="text-slate-300">SURGERY WARD</span>
-                  <span className="text-amber-400">5 / 15 AVAILABLE</span>
-                </div>
-                <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden flex">
-                  <div className="h-full bg-amber-400 rounded-full" style={{width: '33%'}}></div>
-                </div>
-              </div>
-              
-              <div>
-                <div className="flex justify-between text-xs font-bold tracking-wider mb-2">
-                  <span className="text-slate-300">GENERAL ADMISSION</span>
-                  <span className="text-emerald-400">42 / 100 AVAILABLE</span>
-                </div>
-                <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden flex">
-                  <div className="h-full bg-emerald-400 rounded-full" style={{width: '42%'}}></div>
-                </div>
-              </div>
-            </div>
-          </div>
+
 
 
         </div>

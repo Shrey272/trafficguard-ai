@@ -78,19 +78,19 @@ const Analytics = () => {
           </div>
           <div className="space-y-6 flex-1 justify-center flex flex-col">
             <div>
-              <div className="flex justify-between text-sm mb-1.5"><span className="text-slate-300">I-95 North</span><span className="text-rose-400 font-semibold">85%</span></div>
+              <div className="flex justify-between text-sm mb-1.5"><span className="text-slate-300">Ring Road</span><span className="text-rose-400 font-semibold">85%</span></div>
               <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden"><div className="h-full bg-rose-400 rounded-full" style={{width: '85%'}}></div></div>
             </div>
             <div>
-              <div className="flex justify-between text-sm mb-1.5"><span className="text-slate-300">Downtown Ext</span><span className="text-amber-400 font-semibold">62%</span></div>
+              <div className="flex justify-between text-sm mb-1.5"><span className="text-slate-300">Adajan</span><span className="text-amber-400 font-semibold">62%</span></div>
               <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden"><div className="h-full bg-amber-400 rounded-full" style={{width: '62%'}}></div></div>
             </div>
             <div>
-              <div className="flex justify-between text-sm mb-1.5"><span className="text-slate-300">Route 66</span><span className="text-indigo-400 font-semibold">45%</span></div>
+              <div className="flex justify-between text-sm mb-1.5"><span className="text-slate-300">Vesu</span><span className="text-indigo-400 font-semibold">45%</span></div>
               <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden"><div className="h-full bg-indigo-400 rounded-full" style={{width: '45%'}}></div></div>
             </div>
             <div>
-              <div className="flex justify-between text-sm mb-1.5"><span className="text-slate-300">Bridge Port</span><span className="text-emerald-400 font-semibold">20%</span></div>
+              <div className="flex justify-between text-sm mb-1.5"><span className="text-slate-300">Varachha</span><span className="text-emerald-400 font-semibold">20%</span></div>
               <div className="h-2 w-full bg-slate-800 rounded-full overflow-hidden"><div className="h-full bg-emerald-400 rounded-full" style={{width: '20%'}}></div></div>
             </div>
           </div>
