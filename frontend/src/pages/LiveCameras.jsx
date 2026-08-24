@@ -29,16 +29,17 @@ const LiveCameras = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 flex-1">
         {/* Large Featured Camera */}
-        <div className="lg:col-span-2">
+        <div className="lg:col-span-2 flex flex-col h-full">
           <CameraFeed 
             id="CAM-NH48-02" 
             name="NH-48 Junction" 
             type="accident" 
             focus={true}
-            imgSrc="/cam_highway.jpg"
+            className="h-full min-h-[400px]"
+            imgSrc="/cam_accident.jpg"
             overlayData={[
-              { label: "VEHICLE 1 (0V)", x: "20%", y: "45%", w: "30%", h: "20%", color: "red" },
-              { label: "VEHICLE 2 (0V)", x: "45%", y: "40%", w: "25%", h: "25%", color: "red" }
+              { label: "VEHICLE 1 (COLLISION)", x: "25%", y: "40%", w: "22%", h: "20%", color: "red" },
+              { label: "VEHICLE 2 (COLLISION)", x: "48%", y: "40%", w: "24%", h: "22%", color: "red" }
             ]}
           >
             <div className="absolute bottom-4 right-4 text-right text-xs text-white uppercase font-bold tracking-wider">

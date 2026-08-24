@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CameraFeed = ({ id, name, type, focus, overlayData, imgSrc, children }) => {
+const CameraFeed = ({ id, name, type, focus, overlayData, imgSrc, children, className = '' }) => {
   // Determine styles based on type
   const isAlert = type === 'accident';
   const isWarning = type === 'congestion';
@@ -12,15 +12,15 @@ const CameraFeed = ({ id, name, type, focus, overlayData, imgSrc, children }) =>
   const statusText = isAlert ? 'ACCIDENT DETECTED' : isWarning ? 'HEAVY TRAFFIC' : 'NORMAL FLOW';
 
   return (
-    <div className={`relative bg-dark-panel border ${borderColor} rounded-lg overflow-hidden flex flex-col`}>
+    <div className={`relative bg-dark-panel border ${borderColor} rounded-lg overflow-hidden flex flex-col ${className}`}>
       {/* Video / Image Area */}
-      <div className="relative bg-black flex-1 min-h-[160px] flex items-center justify-center overflow-hidden">
+      <div className="relative bg-black flex-1 min-h-[200px] flex items-center justify-center overflow-hidden">
         {/* Actual video feed or placeholder image */}
         <div 
-          className="absolute inset-0 opacity-40 bg-cover bg-center" 
+          className="absolute inset-0 opacity-90 bg-cover bg-center" 
           style={{ backgroundImage: `url('${imgSrc || '/cam_highway.jpg'}')` }}
         ></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
         
         {/* Top left badges */}
         <div className="absolute top-3 left-3 flex gap-2 z-10">
