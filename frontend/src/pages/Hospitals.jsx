@@ -162,44 +162,6 @@ const Hospitals = () => {
             </div>
           </div>
 
-          {/* Staff on Standby */}
-          <div className="bg-dark-panel border border-dark-border rounded-lg p-6 flex-1">
-            <h3 className="text-white font-semibold flex items-center gap-2 mb-6">
-              <Users size={20} className="text-blue-400" /> Staff on Standby
-            </h3>
-            
-            <table className="w-full text-sm text-left">
-              <thead className="text-[10px] text-slate-500 uppercase border-b border-dark-border">
-                <tr>
-                  <th className="pb-3 font-medium">Role</th>
-                  <th className="pb-3 font-medium">Name</th>
-                  <th className="pb-3 font-medium text-right">Status</th>
-                </tr>
-              </thead>
-              <tbody className="text-slate-300">
-                <tr className="border-b border-dark-border/50">
-                  <td className="py-4 text-slate-400">Trauma Surgeon</td>
-                  <td className="py-4 font-medium text-white">Dr. A. Vance</td>
-                  <td className="py-4 text-right"><span className="border border-emerald-500/50 text-emerald-400 px-2 py-1 rounded text-xs font-bold">READY</span></td>
-                </tr>
-                <tr className="border-b border-dark-border/50">
-                  <td className="py-4 text-slate-400">Anesthesiologist</td>
-                  <td className="py-4 font-medium text-white">Dr. K. Chen</td>
-                  <td className="py-4 text-right"><span className="border border-emerald-500/50 text-emerald-400 px-2 py-1 rounded text-xs font-bold">READY</span></td>
-                </tr>
-                <tr className="border-b border-dark-border/50">
-                  <td className="py-4 text-slate-400">ER Head Nurse</td>
-                  <td className="py-4 font-medium text-white">M. Roberts</td>
-                  <td className="py-4 text-right"><span className="border border-amber-500/50 text-amber-400 px-2 py-1 rounded text-xs font-bold">IN PREP</span></td>
-                </tr>
-                <tr>
-                  <td className="py-4 text-slate-400">Neuro Surgeon</td>
-                  <td className="py-4 font-medium text-white">Dr. L. Thorne</td>
-                  <td className="py-4 text-right"><span className="border border-slate-500/50 text-slate-400 px-2 py-1 rounded text-xs font-bold">ON CALL</span></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
 
         </div>
       </div>

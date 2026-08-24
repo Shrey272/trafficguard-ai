@@ -21,9 +21,8 @@ if not exist venv (
     echo Creating virtual environment...
     python -m venv venv
 )
-call venv\Scripts\activate
 echo Installing dependencies...
-pip install -r requirements.txt
+venv\Scripts\python -m pip install -r requirements.txt
 if %errorlevel% neq 0 (
     echo Backend dependencies installation failed. Exiting...
     exit /b %errorlevel%
@@ -32,4 +31,4 @@ if %errorlevel% neq 0 (
 echo.
 echo [3/3] Starting Production Server...
 echo The application will be available at http://localhost:8000
-python -m uvicorn main:app --host 0.0.0.0 --port 8000
+venv\Scripts\python -m uvicorn main:app --host 0.0.0.0 --port 8000

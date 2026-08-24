@@ -69,28 +69,6 @@ const Analytics = () => {
         </div>
       </div>
 
-      {/* Main Chart */}
-      <div className="bg-dark-panel border border-dark-border rounded-lg p-6">
-        <h3 className="text-lg font-semibold text-white mb-6">Traffic Volume by Hour</h3>
-        <div className="h-64">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={trafficData} margin={{ top: 0, right: 0, left: -20, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#2a2f42" vertical={false} />
-              <XAxis dataKey="time" stroke="#475569" fontSize={12} tickLine={false} axisLine={false} dy={10} />
-              <Tooltip 
-                contentStyle={{ backgroundColor: '#1a1e2b', borderColor: '#2a2f42', color: '#fff' }}
-                itemStyle={{ color: '#fff' }}
-                cursor={{ fill: '#121621' }}
-              />
-              <Legend verticalAlign="top" align="right" iconType="circle" wrapperStyle={{ paddingBottom: '20px', fontSize: '12px' }} />
-              <Bar dataKey="Cars" fill="#93c5fd" radius={[2, 2, 0, 0]} barSize={12} />
-              <Bar dataKey="Bikes" fill="#34d399" radius={[2, 2, 0, 0]} barSize={12} />
-              <Bar dataKey="Trucks" fill="#94a3b8" radius={[2, 2, 0, 0]} barSize={12} />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-      </div>
-
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 pb-6">
         {/* Hotspots */}
         <div className="bg-dark-panel border border-dark-border rounded-lg p-5 flex flex-col">
