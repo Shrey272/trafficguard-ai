@@ -133,35 +133,35 @@ const Analytics = () => {
                 </thead>
                 <tbody className="text-slate-300">
                   <tr className="border-b border-dark-border/50">
-                    <td className="py-3 flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-rose-400"></span> I-95 North, Mile 42</td>
+                    <td className="py-3 flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-rose-400"></span> Ring Road North</td>
                     <td className="py-3"><span className="border border-rose-500/50 text-rose-400 px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider">CRITICAL</span></td>
                     <td className="py-3 font-medium">45 mins</td>
                     <td className="py-3 text-slate-400 text-xs">07:00 - 09:30</td>
                     <td className="py-3 text-right"><TrendingUp size={16} className="text-rose-400 inline" /></td>
                   </tr>
                   <tr className="border-b border-dark-border/50">
-                    <td className="py-3 flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Downtown Exit 4A</td>
+                    <td className="py-3 flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Adajan Patia</td>
                     <td className="py-3"><span className="border border-amber-500/50 text-amber-400 px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider">HIGH</span></td>
                     <td className="py-3 font-medium">28 mins</td>
                     <td className="py-3 text-slate-400 text-xs">16:30 - 18:45</td>
                     <td className="py-3 text-right"><ArrowRight size={16} className="text-slate-500 inline" /></td>
                   </tr>
                   <tr className="border-b border-dark-border/50">
-                    <td className="py-3 flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span> West Blvd Intersection</td>
+                    <td className="py-3 flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span> Vesu Main Road</td>
                     <td className="py-3"><span className="border border-amber-500/50 text-amber-400 px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider">HIGH</span></td>
                     <td className="py-3 font-medium">22 mins</td>
                     <td className="py-3 text-slate-400 text-xs">17:00 - 18:00</td>
                     <td className="py-3 text-right"><TrendingUp size={16} className="text-rose-400 inline" /></td>
                   </tr>
                   <tr className="border-b border-dark-border/50">
-                    <td className="py-3 flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> Route 66, Section B</td>
+                    <td className="py-3 flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> Varachha Chowpati</td>
                     <td className="py-3"><span className="border border-indigo-500/50 text-indigo-400 px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider">MODERATE</span></td>
                     <td className="py-3 font-medium">15 mins</td>
                     <td className="py-3 text-slate-400 text-xs">08:00 - 09:00</td>
                     <td className="py-3 text-right"><TrendingDown size={16} className="text-emerald-400 inline" /></td>
                   </tr>
                   <tr>
-                    <td className="py-3 flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> Bridge Port Tunnel</td>
+                    <td className="py-3 flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-indigo-400"></span> Udhana Darwaja</td>
                     <td className="py-3"><span className="border border-indigo-500/50 text-indigo-400 px-2 py-0.5 rounded-full text-[10px] font-bold tracking-wider">MODERATE</span></td>
                     <td className="py-3 font-medium">12 mins</td>
                     <td className="py-3 text-slate-400 text-xs">16:00 - 17:30</td>

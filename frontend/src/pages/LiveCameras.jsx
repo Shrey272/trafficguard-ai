@@ -32,7 +32,7 @@ const LiveCameras = () => {
         <div className="lg:col-span-2 flex flex-col h-full">
           <CameraFeed 
             id="CAM-NH48-02" 
-            name="NH-48 Junction" 
+            name="Surat-Kadodara Road" 
             type="accident" 
             focus={true}
             className="h-full min-h-[400px]"
@@ -52,7 +52,7 @@ const LiveCameras = () => {
         <div className="grid grid-rows-2 gap-6">
           <CameraFeed 
             id="CAM-RND-03" 
-            name="Central Roundabout" 
+            name="Athwa Gate Circle" 
             imgSrc="/cam_roundabout.jpg"
             overlayData={[
               { label: "CAR", x: "30%", y: "70%", w: "15%", h: "15%", color: "green" }
@@ -60,7 +60,7 @@ const LiveCameras = () => {
           />
           <CameraFeed 
             id="CAM-CTY-12" 
-            name="City Center 5th Ave" 
+            name="Chowk Bazar" 
             type="congestion"
             imgSrc="/cam_intersection.jpg"
             overlayData={[

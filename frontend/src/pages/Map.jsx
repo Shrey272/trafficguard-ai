@@ -60,7 +60,7 @@ const MapView = () => {
               <span className="text-xs text-slate-400">10:42 AM</span>
             </div>
             <h4 className="text-white font-medium mb-1">Multi-Vehicle Collision</h4>
-            <p className="text-sm text-slate-400 mb-4 line-clamp-2">Intersection 4A, Downtown Sector. Lanes 1 & 2 blocked.</p>
+            <p className="text-sm text-slate-400 mb-4 line-clamp-2">Adajan Patia, Surat. Lanes 1 & 2 blocked.</p>
             <div className="flex gap-2">
                <button className="flex-1 bg-slate-800 text-white text-xs py-1.5 rounded flex items-center justify-center gap-1 hover:bg-slate-700 transition-colors"><Focus size={14} /> Focus</button>
                <button className="flex-1 bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 text-xs py-1.5 rounded flex items-center justify-center gap-1 hover:bg-indigo-600/30 transition-colors"><Navigation size={14} /> Dispatch</button>
@@ -76,7 +76,7 @@ const MapView = () => {
               <span className="text-xs text-slate-400">10:15 AM</span>
             </div>
             <h4 className="text-white font-medium mb-1">Severe Congestion</h4>
-            <p className="text-sm text-slate-400 mb-4 line-clamp-2">Northbound Hwy 80. Average speed &lt; 15mph.</p>
+            <p className="text-sm text-slate-400 mb-4 line-clamp-2">Ring Road Northbound. Average speed &lt; 15mph.</p>
             <div className="flex gap-2">
                <button className="w-full bg-slate-800 text-white text-xs py-1.5 rounded flex items-center justify-center gap-1 hover:bg-slate-700 transition-colors"><Focus size={14} /> Focus</button>
             </div>
@@ -91,7 +91,7 @@ const MapView = () => {
               <span className="text-xs text-slate-400">09:30 AM</span>
             </div>
             <h4 className="text-white font-medium mb-1">Signal Malfunction</h4>
-            <p className="text-sm text-slate-400 mb-4 line-clamp-2">Pedestrian crossing signal out of sync at 5th & Main.</p>
+            <p className="text-sm text-slate-400 mb-4 line-clamp-2">Pedestrian crossing signal out of sync at Udhana Darwaja.</p>
             <div className="flex gap-2">
                <button className="w-full bg-slate-800 text-white text-xs py-1.5 rounded flex items-center justify-center gap-1 hover:bg-slate-700 transition-colors"><Focus size={14} /> Focus</button>
             </div>
