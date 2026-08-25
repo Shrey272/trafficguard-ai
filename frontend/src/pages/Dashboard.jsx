@@ -64,10 +64,10 @@ const Dashboard = () => {
             </button>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-1">
-            <CameraFeed id="CAM-01" name="NH-48 Junction" imgSrc="/cam_highway.jpg" />
-            <CameraFeed id="CAM-12" name="City Center" imgSrc="/cam_intersection.jpg" />
-            <CameraFeed id="CAM-44" name="Metro Station" imgSrc="/cam_roundabout.jpg" />
-            <CameraFeed id="CAM-89" name="North Gate" imgSrc="/cam_night.jpg" />
+            <CameraFeed id="CAM-01" name="Ring Road Junction" imgSrc="/cam_highway.jpg" />
+            <CameraFeed id="CAM-12" name="Athwa Gate" imgSrc="/cam_intersection.jpg" />
+            <CameraFeed id="CAM-44" name="Udhna Darwaja" imgSrc="/cam_roundabout.jpg" />
+            <CameraFeed id="CAM-89" name="Delhi Gate" imgSrc="/cam_night.jpg" />
           </div>
         </div>
 

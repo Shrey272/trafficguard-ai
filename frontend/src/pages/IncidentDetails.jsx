@@ -22,7 +22,7 @@ const IncidentDetails = () => {
         </button>
         <div className="flex justify-between items-end">
           <div>
-            <h2 className="text-2xl font-bold text-white mb-1">NH-48 Junction Incident Details</h2>
+            <h2 className="text-2xl font-bold text-white mb-1">Ring Road Junction Incident Details</h2>
             <p className="text-slate-400 text-sm">ID: #TRF-99201 • Logged: 10:42 AM</p>
           </div>
           <button className="bg-dark-sidebar border border-dark-border text-slate-300 px-4 py-2 rounded text-sm hover:bg-slate-800 transition-colors flex items-center gap-2">
@@ -37,7 +37,7 @@ const IncidentDetails = () => {
         <div className="lg:col-span-2">
           <CameraFeed 
             id="CAM-NH48-02" 
-            name="NH-48 Junction" 
+            name="Ring Road Junction" 
             type="accident" 
             focus={true}
             imgSrc="/cam_highway.jpg"
