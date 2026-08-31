@@ -1,7 +1,8 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
+from fastapi import FastAPI  # type: ignore
+from fastapi.middleware.cors import CORSMiddleware  # type: ignore
+from fastapi.staticfiles import StaticFiles  # type: ignore
+from fastapi.responses import FileResponse  # type: ignore
+
 import os
 from app.api import cameras, incidents, traffic, alerts, websocket, plates
 from app.database.connection import engine, Base
