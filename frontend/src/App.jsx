@@ -8,6 +8,7 @@ import Analytics from './pages/Analytics';
 import Hospitals from './pages/Hospitals';
 import Incidents from './pages/Incidents';
 import IncidentDetails from './pages/IncidentDetails';
+import ANPR from './pages/ANPR';
 import { RealtimeProvider } from './context/RealtimeContext';
 
 function App() {
@@ -17,17 +18,19 @@ function App() {
         <Layout>
           <Routes>
             <Route path="/" element={<Dashboard />} />
-          <Route path="/cameras" element={<LiveCameras />} />
-          <Route path="/map" element={<MapView />} />
-          <Route path="/analytics" element={<Analytics />} />
-          <Route path="/hospitals" element={<Hospitals />} />
-          <Route path="/incidents" element={<Incidents />} />
-          <Route path="/incidents/:id" element={<IncidentDetails />} />
-        </Routes>
-      </Layout>
-    </BrowserRouter>
+            <Route path="/cameras" element={<LiveCameras />} />
+            <Route path="/anpr" element={<ANPR />} />
+            <Route path="/map" element={<MapView />} />
+            <Route path="/analytics" element={<Analytics />} />
+            <Route path="/hospitals" element={<Hospitals />} />
+            <Route path="/incidents" element={<Incidents />} />
+            <Route path="/incidents/:id" element={<IncidentDetails />} />
+          </Routes>
+        </Layout>
+      </BrowserRouter>
     </RealtimeProvider>
   );
 }
+
 
 export default App;

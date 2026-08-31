@@ -3,18 +3,18 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 import os
-from app.api import cameras, incidents, traffic, alerts, websocket
+from app.api import cameras, incidents, traffic, alerts, websocket, plates
 from app.database.connection import engine, Base
 from app.models.camera import Camera
 from app.models.incident import Incident
 from app.models.traffic import TrafficEvent
 from app.models.alert import Alert
+from app.models.vehicle_plate import VehiclePlate
 from contextlib import asynccontextmanager
 from app.database import init_db
 
 # Create DB tables
 Base.metadata.create_all(bind=engine)
-
 
 import asyncio
 from app.services.simulator import simulate_live_data
@@ -23,6 +23,7 @@ from app.services.simulator import simulate_live_data
 async def lifespan(app: FastAPI):
     # Initialize DB with mock data if needed
     init_db.seed_cameras()
+    init_db.seed_vehicle_plates()
     # Start the simulator task
     simulator_task = asyncio.create_task(simulate_live_data())
     yield
@@ -44,7 +45,9 @@ app.include_router(cameras.router, prefix="/api/cameras", tags=["cameras"])
 app.include_router(incidents.router, prefix="/api/incidents", tags=["incidents"])
 app.include_router(traffic.router, prefix="/api/traffic", tags=["traffic"])
 app.include_router(alerts.router, prefix="/api/alerts", tags=["alerts"])
+app.include_router(plates.router, prefix="/api/plates", tags=["plates"])
 app.include_router(websocket.router, tags=["websocket"])
+
 
 @app.get("/health")
 def health_check():

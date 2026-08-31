@@ -1,16 +1,18 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { LayoutDashboard, Video, Map as MapIcon, AlertTriangle, BarChart2, PlusSquare, Settings, Shield } from 'lucide-react';
+import { LayoutDashboard, Video, Map as MapIcon, AlertTriangle, BarChart2, PlusSquare, Settings, Shield, FileText } from 'lucide-react';
 
 const Sidebar = ({ isOpen, setIsOpen }) => {
   const navItems = [
     { name: 'Dashboard', icon: LayoutDashboard, path: '/' },
     { name: 'Live Cameras', icon: Video, path: '/cameras' },
+    { name: 'ANPR & Vehicle Trace', icon: FileText, path: '/anpr' },
     { name: 'Map', icon: MapIcon, path: '/map' },
     { name: 'Incidents', icon: AlertTriangle, path: '/incidents', badge: 3 },
     { name: 'Analytics', icon: BarChart2, path: '/analytics' },
     { name: 'Hospitals', icon: PlusSquare, path: '/hospitals' },
   ];
+
 
   return (
     <>
