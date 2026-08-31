@@ -1,8 +1,9 @@
 import os
-from sqlalchemy import create_engine
-from sqlalchemy.orm import declarative_base
-from sqlalchemy.orm import sessionmaker
-from dotenv import load_dotenv, find_dotenv
+from sqlalchemy import create_engine  # type: ignore
+from sqlalchemy.orm import declarative_base  # type: ignore
+from sqlalchemy.orm import sessionmaker  # type: ignore
+from dotenv import load_dotenv, find_dotenv  # type: ignore
+
 
 load_dotenv(find_dotenv())
 
