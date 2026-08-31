@@ -5,18 +5,22 @@ Transfers existing records from trafficguard.db (SQLite) into PostgreSQL.
 
 import os
 import sys
-from dotenv import load_dotenv, find_dotenv
 
-# Ensure backend path is in sys.path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+# Ensure backend directory is in sys.path before loading app modules
+backend_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if backend_dir not in sys.path:
+    sys.path.insert(0, backend_dir)
 
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
-from app.database.connection import Base, DATABASE_URL as PG_DATABASE_URL
-from app.models.camera import Camera
-from app.models.incident import Incident
-from app.models.traffic import TrafficEvent
-from app.models.alert import Alert
+from dotenv import load_dotenv, find_dotenv  # type: ignore
+from sqlalchemy import create_engine  # type: ignore
+from sqlalchemy.orm import sessionmaker  # type: ignore
+
+from app.database.connection import Base, DATABASE_URL as PG_DATABASE_URL  # type: ignore
+from app.models.camera import Camera  # type: ignore
+from app.models.incident import Incident  # type: ignore
+from app.models.traffic import TrafficEvent  # type: ignore
+from app.models.alert import Alert  # type: ignore
+
 
 def migrate_sqlite_to_postgres(sqlite_path="trafficguard.db"):
     if not os.path.exists(sqlite_path):
