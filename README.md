@@ -1,7 +1,17 @@
 # TrafficGuard AI 🚨🚦
 > **Real-Time AI-Based Traffic Monitoring & Emergency Response System**
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-trafficguard--ai-brightgreen?style=for-the-badge&logo=render)](https://trafficguard-ai-lu3q.onrender.com)
+
 TrafficGuard AI is a high-scale, real-time intelligent traffic management system that detects road accidents, analyzes traffic congestion, tracks vehicle counts, and dispatches automated alerts to emergency services (Police & Hospitals).
+
+---
+
+## 🌐 Live Demo
+
+🔗 **[https://trafficguard-ai-lu3q.onrender.com](https://trafficguard-ai-lu3q.onrender.com)**
+
+> Hosted on **Render** — Backend API + Frontend served via cloud deployment.
 
 ---
 
