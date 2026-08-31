@@ -7,6 +7,7 @@ class TrafficEvent(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     camera_id = Column(String, index=True)
-    timestamp = Column(DateTime, default=datetime.utcnow)
+    timestamp = Column(DateTime, default=datetime.utcnow, index=True)
     total_vehicles = Column(Integer)
-    congestion_status = Column(String) # "LOW", "MEDIUM", "HIGH"
+    congestion_status = Column(String, index=True) # "LOW", "MEDIUM", "HIGH"
+

@@ -12,7 +12,8 @@ class Incident(Base):
     confidence = Column(Float) # 0-100
     latitude = Column(Float)
     longitude = Column(Float)
-    timestamp = Column(DateTime, default=datetime.utcnow)
+    timestamp = Column(DateTime, default=datetime.utcnow, index=True)
     vehicle_count = Column(Integer)
-    status = Column(String, default="NEW") # NEW, ACKNOWLEDGED, RESOLVED
+    status = Column(String, default="NEW", index=True) # NEW, ACKNOWLEDGED, RESOLVED
     description = Column(String, nullable=True)
+

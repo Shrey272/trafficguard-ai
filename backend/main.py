@@ -5,11 +5,16 @@ from fastapi.responses import FileResponse
 import os
 from app.api import cameras, incidents, traffic, alerts, websocket
 from app.database.connection import engine, Base
+from app.models.camera import Camera
+from app.models.incident import Incident
+from app.models.traffic import TrafficEvent
+from app.models.alert import Alert
 from contextlib import asynccontextmanager
 from app.database import init_db
 
 # Create DB tables
 Base.metadata.create_all(bind=engine)
+
 
 import asyncio
 from app.services.simulator import simulate_live_data
