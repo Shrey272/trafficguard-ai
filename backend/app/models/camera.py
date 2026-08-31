@@ -1,5 +1,5 @@
-from sqlalchemy import Column, Integer, String, Float, Boolean
-from app.database.connection import Base
+from sqlalchemy import Column, Integer, String, Float, Boolean  # type: ignore
+from app.database.connection import Base  # type: ignore
 
 class Camera(Base):
     __tablename__ = "cameras"

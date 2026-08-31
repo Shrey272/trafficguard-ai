@@ -1,5 +1,5 @@
-from sqlalchemy import Column, Integer, String, Float, DateTime
-from app.database.connection import Base
+from sqlalchemy import Column, Integer, String, Float, DateTime  # type: ignore
+from app.database.connection import Base  # type: ignore
 from datetime import datetime
 
 class Incident(Base):

@@ -1,5 +1,5 @@
-from sqlalchemy import Column, Integer, String, DateTime
-from app.database.connection import Base
+from sqlalchemy import Column, Integer, String, DateTime  # type: ignore
+from app.database.connection import Base  # type: ignore
 from datetime import datetime
 
 class TrafficEvent(Base):
