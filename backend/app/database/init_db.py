@@ -1,57 +1,45 @@
 from sqlalchemy import text, inspect
-from app.database.connection import SessionLocal, engine
+from app.database.connection import SessionLocal, engine, Base
 from app.models.camera import Camera
 from app.models.vehicle_observation import VehicleObservation
 from app.models.vehicle_journey import VehicleJourney, JourneyPoint
 from app.models.user import User
 from app.models.audit_log import AuditLog
 from app.models.incident_log import IncidentLog
+from app.models.incident import Incident
+from app.models.traffic import TrafficEvent
+from app.models.alert import Alert
+from app.models.watchlist import WatchlistRecord, WatchlistAlert
+from app.models.worker import EdgeWorker
 from app.core.security import get_password_hash
 from datetime import datetime, timedelta
 
 
 def migrate_schema():
-    """Ensures newly added Phase 1 columns exist in PostgreSQL or SQLite."""
+    """Ensures all tables and newly added columns exist in PostgreSQL or SQLite."""
+    # Ensure all tables exist first
+    Base.metadata.create_all(bind=engine)
+
     db = SessionLocal()
     try:
         inspector = inspect(engine)
-        tables = inspector.get_table_names()
-        if 'cameras' in tables:
-            existing_columns = [col['name'] for col in inspector.get_columns('cameras')]
-            columns_to_add = [
-                ("camera_code", "VARCHAR"),
-                ("description", "VARCHAR"),
-                ("department", "VARCHAR DEFAULT 'Traffic Police'"),
-                ("vendor", "VARCHAR DEFAULT 'Hikvision'"),
-                ("model", "VARCHAR DEFAULT 'Standard IP/PTZ'"),
-                ("vms_name", "VARCHAR DEFAULT 'Main VMS'"),
-                ("source_type", "VARCHAR DEFAULT 'RTSP'"),
-                ("location_name", "VARCHAR"),
-                ("rtsp_url", "VARCHAR"),
-                ("credential_reference", "VARCHAR"),
-                ("status", "VARCHAR DEFAULT 'ONLINE'"),
-                ("last_seen", "TIMESTAMP"),
-                ("enabled", "BOOLEAN DEFAULT 1"),
-                ("created_at", "TIMESTAMP"),
-                ("updated_at", "TIMESTAMP"),
-                ("onvif_host", "VARCHAR"),
-                ("onvif_port", "INTEGER DEFAULT 80"),
-                ("onvif_profile_token", "VARCHAR"),
-                ("has_ptz", "BOOLEAN DEFAULT 0"),
-                ("capabilities", "VARCHAR DEFAULT 'STREAMING'"),
-                ("video_file_path", "VARCHAR"),
-                ("device_index", "INTEGER DEFAULT 0"),
-            ]
-            for col_name, col_type in columns_to_add:
-                if col_name not in existing_columns:
-                    try:
-                        db.execute(text(f"ALTER TABLE cameras ADD COLUMN {col_name} {col_type}"))
-                        db.commit()
-                    except Exception:
-                        db.rollback()
+        existing_tables = inspector.get_table_names()
 
-        if 'incident_logs' not in tables:
-            IncidentLog.__table__.create(engine)
+        # Iterate over all registered models in Base.metadata
+        for table_name, table in Base.metadata.tables.items():
+            if table_name in existing_tables:
+                existing_cols = {col['name'] for col in inspector.get_columns(table_name)}
+                for column in table.columns:
+                    if column.name not in existing_cols:
+                        col_type = column.type.compile(engine.dialect)
+                        sql = f'ALTER TABLE "{table_name}" ADD COLUMN "{column.name}" {col_type}'
+                        try:
+                            db.execute(text(sql))
+                            db.commit()
+                            print(f"Migrated: added column {column.name} ({col_type}) to {table_name}")
+                        except Exception as add_err:
+                            db.rollback()
+                            print(f"Note on adding {column.name} to {table_name}: {add_err}")
 
         # Backfill camera_code and location_name for legacy cameras if null
         try:
@@ -62,10 +50,11 @@ def migrate_schema():
                 "WHERE department IS NULL"
             ))
             db.execute(text("UPDATE cameras SET status = 'ONLINE' WHERE status IS NULL"))
-            db.execute(text("UPDATE cameras SET enabled = 1 WHERE enabled IS NULL"))
+            db.execute(text("UPDATE cameras SET enabled = TRUE WHERE enabled IS NULL"))
             db.commit()
-        except Exception:
+        except Exception as update_err:
             db.rollback()
+            print(f"Note on backfilling camera defaults: {update_err}")
     except Exception as e:
         print(f"Migration note: {e}")
     finally:
