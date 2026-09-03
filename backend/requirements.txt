@@ -1,7 +1,7 @@
 fastapi
 uvicorn
 sqlalchemy
-pydantic
+pydantic[email]
 websockets
 python-dotenv
 psycopg2-binary
@@ -12,3 +12,5 @@ passlib
 numpy
 opencv-python-headless
 redis
+slowapi
+email-validator
