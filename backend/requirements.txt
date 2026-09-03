@@ -2,15 +2,14 @@ fastapi
 uvicorn
 sqlalchemy
 pydantic[email]
+email-validator
 websockets
 python-dotenv
 psycopg2-binary
 alembic
 pyjwt
 bcrypt
-passlib
 numpy
 opencv-python-headless
 redis
 slowapi
-email-validator

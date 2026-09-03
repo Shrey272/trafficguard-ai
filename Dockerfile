@@ -41,5 +41,4 @@ EXPOSE 8000
 # Set working directory to backend where main.py lives
 WORKDIR /app/backend
 
-# Run the FastAPI server
-CMD uvicorn main:app --host 0.0.0.0 --port $PORT
+CMD ["sh", "-c", "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}"]
