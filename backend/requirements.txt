@@ -6,4 +6,9 @@ websockets
 python-dotenv
 psycopg2-binary
 alembic
-
+pyjwt
+bcrypt
+passlib
+numpy
+opencv-python-headless
+redis

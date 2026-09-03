@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
+import WatchlistAlertToast from '../WatchlistAlertToast';
 
 const Layout = ({ children }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -14,6 +15,7 @@ const Layout = ({ children }) => {
           {children}
         </main>
       </div>
+      <WatchlistAlertToast />
     </div>
   );
 };

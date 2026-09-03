@@ -1,29 +1,56 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import CameraFeed from '../components/ui/CameraFeed';
-import { Grid, List } from 'lucide-react';
+import { Grid, List, Server, Activity, ArrowRight, Video, RefreshCw } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { useRealtime } from '../context/RealtimeContext';
 
 const LiveCameras = () => {
+  const { authFetch } = useAuth();
+  const { cameraHealthMap } = useRealtime();
+  const [cameras, setCameras] = useState([]);
+  const [selectedFilter, setSelectedFilter] = useState('ALL');
+
+  useEffect(() => {
+    authFetch('/api/cameras')
+      .then(res => res.ok ? res.json() : [])
+      .then(data => {
+        if (Array.isArray(data)) setCameras(data);
+      })
+      .catch(err => console.error("Error fetching cameras:", err));
+  }, []);
+
+  const enrichedCameras = cameras.map(cam => {
+    const live = cameraHealthMap[cam.id] || cameraHealthMap[cam.camera_code];
+    return {
+      ...cam,
+      status: live?.status || cam.status,
+      fps: live?.fps !== undefined ? live?.fps : cam.fps
+    };
+  });
+
   return (
     <div className="flex flex-col gap-6 max-w-7xl mx-auto h-full">
-      <div className="flex justify-between items-end">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
         <div>
-          <h2 className="text-2xl font-bold text-white mb-1">Live CCTV Grid</h2>
-          <p className="text-slate-400 text-sm">Real-time AI object detection and traffic flow analysis.</p>
+          <div className="flex items-center gap-2">
+            <h2 className="text-2xl font-bold text-white mb-1">Live CCTV Grid</h2>
+            <span className="bg-emerald-500/20 text-emerald-400 text-xs px-2 py-0.5 rounded font-mono font-bold">
+              AI INGESTION ACTIVE
+            </span>
+          </div>
+          <p className="text-slate-400 text-sm">Real-time RTSP video ingestion and ByteTrack traffic flow analysis.</p>
         </div>
         
-        <div className="flex items-center gap-4 bg-dark-panel border border-dark-border p-1.5 rounded-lg">
-          <div className="flex gap-1 border-r border-dark-border pr-3">
-            <button className="px-4 py-1.5 bg-slate-800 text-white rounded text-sm font-medium">All Cameras (24)</button>
-            <button className="px-4 py-1.5 text-slate-400 hover:text-white rounded text-sm transition-colors">Normal (18)</button>
-            <button className="px-4 py-1.5 text-slate-400 hover:text-white rounded text-sm transition-colors">Heavy Traffic (5)</button>
-            <button className="px-4 py-1.5 flex items-center gap-2 text-rose-400 hover:bg-rose-500/10 rounded text-sm transition-colors">
-              <span className="w-1.5 h-1.5 rounded-full bg-rose-500"></span> Accident Detected (1)
-            </button>
-          </div>
-          <div className="flex gap-2 px-2 text-slate-400">
-            <button className="p-1 hover:text-white"><List size={18} /></button>
-            <button className="p-1 text-white bg-slate-800 rounded"><Grid size={18} /></button>
-          </div>
+        <div className="flex items-center gap-3">
+          <Link
+            to="/cameras/manage"
+            className="px-3.5 py-1.5 bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/30 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-colors"
+          >
+            <Server size={14} />
+            <span>Manage Registry</span>
+            <ArrowRight size={13} />
+          </Link>
         </div>
       </div>
 
@@ -32,7 +59,7 @@ const LiveCameras = () => {
         <div className="lg:col-span-2 flex flex-col h-full">
           <CameraFeed 
             id="CAM-NH48-02" 
-            name="Surat-Kadodara Road" 
+            name="Surat-Kadodara Road (NH-48)" 
             type="accident" 
             focus={true}
             className="h-full min-h-[400px]"
@@ -55,12 +82,12 @@ const LiveCameras = () => {
             name="Athwa Gate Circle" 
             imgSrc="/cam_roundabout.jpg"
             overlayData={[
-              { label: "CAR", x: "30%", y: "70%", w: "15%", h: "15%", color: "green" }
+              { label: "CAR (GJ-05-AB)", x: "30%", y: "70%", w: "15%", h: "15%", color: "green" }
             ]}
           />
           <CameraFeed 
             id="CAM-CTY-12" 
-            name="Chowk Bazar" 
+            name="Chowk Bazar Heritage Corridor" 
             type="congestion"
             imgSrc="/cam_intersection.jpg"
             overlayData={[

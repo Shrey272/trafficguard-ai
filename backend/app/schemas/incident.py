@@ -11,6 +11,12 @@ class IncidentBase(BaseModel):
     longitude: float
     vehicle_count: int
     description: Optional[str] = None
+    
+    # Phase 5: Evidence
+    track_ids: Optional[str] = None
+    snapshot_reference: Optional[str] = None
+    video_clip_reference: Optional[str] = None
+    signals_used: Optional[str] = None
 
 class IncidentCreate(IncidentBase):
     pass
@@ -23,5 +29,18 @@ class IncidentResponse(IncidentBase):
     timestamp: datetime
     status: str
 
+    class Config:
+        from_attributes = True
+
+class IncidentLogBase(BaseModel):
+    incident_id: int
+    status: str
+    notes: Optional[str] = None
+    
+class IncidentLogResponse(IncidentLogBase):
+    id: int
+    user_id: Optional[int] = None
+    timestamp: datetime
+    
     class Config:
         from_attributes = True

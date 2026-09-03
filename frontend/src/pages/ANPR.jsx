@@ -1,5 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Search, ShieldAlert, Car, Camera, MapPin, Clock, ArrowRight, CheckCircle, AlertTriangle, RefreshCw, FileText } from 'lucide-react';
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from 'react-leaflet';
+import L from 'leaflet';
+
+// Fix for default marker icon in react-leaflet
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+});
 
 const ANPR = () => {
   const [plates, setPlates] = useState([]);
@@ -11,7 +21,7 @@ const ANPR = () => {
   // Fetch recent plate recognitions from backend
   const fetchPlates = async () => {
     try {
-      const response = await fetch('/api/plates/');
+      const response = await fetch('/api/vehicles/observations');
       if (response.ok) {
         const data = await response.json();
         setPlates(data);
@@ -38,7 +48,7 @@ const ANPR = () => {
     setSearchResults(null);
 
     try {
-      const response = await fetch(`/api/plates/search?plate_number=${encodeURIComponent(targetPlate.trim())}`);
+      const response = await fetch(`/api/vehicles/search?plate_number=${encodeURIComponent(targetPlate.trim())}`);
       if (!response.ok) {
         throw new Error(`No sightings found for '${targetPlate}'`);
       }
@@ -191,7 +201,7 @@ const ANPR = () => {
             <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-700/60 pb-3 gap-2">
               <div className="flex items-center gap-3">
                 <span className="bg-slate-800 text-white font-mono text-lg font-bold px-3 py-1 rounded-md border border-slate-700">
-                  {searchResults.plate_number}
+                  {searchResults.normalized_plate}
                 </span>
                 <span className="bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 text-xs px-2.5 py-1 rounded-md font-semibold">
                   {searchResults.total_sightings} Sightings Tracked
@@ -202,45 +212,90 @@ const ANPR = () => {
               </span>
             </div>
 
-            {/* Camera Sequence Timeline */}
-            <div className="space-y-3">
-              <h4 className="text-xs font-semibold text-slate-400 tracking-wider uppercase">Multi-Camera Trajectory Route</h4>
+            {/* GIS Map & Timeline Container */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               
-              <div className="relative pl-6 space-y-6 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-indigo-500/40">
-                {searchResults.sightings.map((sighting, idx) => (
-                  <div key={sighting.id || idx} className="relative flex flex-col sm:flex-row sm:items-center justify-between bg-dark-panel border border-dark-border rounded-lg p-3 gap-2">
-                    {/* Timeline Marker Dot */}
-                    <div className="absolute -left-[23px] top-4 w-3.5 h-3.5 rounded-full bg-indigo-500 border-2 border-slate-900 ring-2 ring-indigo-500/30"></div>
+              {/* Map Visualization */}
+              <div className="bg-dark-panel border border-dark-border rounded-xl p-4 overflow-hidden" style={{ minHeight: '400px', zIndex: 0 }}>
+                <h4 className="text-xs font-semibold text-slate-400 tracking-wider uppercase mb-3 flex items-center gap-2">
+                  <MapPin size={16} className="text-indigo-400" />
+                  Vehicle Journey Map
+                </h4>
+                {searchResults.journey && searchResults.journey.points.length > 0 ? (
+                  <div className="rounded-lg overflow-hidden border border-slate-700 h-[350px]">
+                    <MapContainer 
+                      center={[searchResults.journey.points[0].latitude || 21.17, searchResults.journey.points[0].longitude || 72.83]} 
+                      zoom={12} 
+                      style={{ height: '100%', width: '100%', zIndex: 1 }}
+                    >
+                      <TileLayer
+                        url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+                      />
+                      
+                      {/* Draw Journey Line */}
+                      <Polyline 
+                        positions={searchResults.journey.points.filter(p => p.latitude && p.longitude).map(p => [p.latitude, p.longitude])}
+                        pathOptions={{ color: '#6366f1', weight: 4, dashArray: '5, 10', animate: true }}
+                      />
 
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 bg-slate-800 text-slate-300 rounded">
-                        <MapPin size={18} />
-                      </div>
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <span className="font-semibold text-white text-sm">{sighting.camera_name}</span>
-                          <span className="text-xs font-mono text-slate-400">({sighting.camera_id})</span>
-                        </div>
-                        <p className="text-xs text-slate-400 flex items-center gap-1 mt-0.5">
-                          <Clock size={12} />
-                          {new Date(sighting.timestamp).toLocaleString()}
-                        </p>
-                      </div>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs text-slate-400">Vehicle: <strong className="text-slate-200">{sighting.vehicle_type}</strong></span>
-                      <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs px-2 py-0.5 rounded font-mono">
-                        {sighting.confidence}% Conf.
-                      </span>
-                      {sighting.status === 'FLAGGED' && (
-                        <span className="bg-rose-500/20 text-rose-400 border border-rose-500/30 text-xs px-2 py-0.5 rounded font-semibold">
-                          FLAGGED
-                        </span>
-                      )}
-                    </div>
+                      {/* Draw Markers */}
+                      {searchResults.journey.points.map((point, idx) => (
+                        point.latitude && point.longitude && (
+                          <Marker key={point.id || idx} position={[point.latitude, point.longitude]}>
+                            <Popup className="bg-slate-900 border border-slate-700">
+                              <div className="p-1">
+                                <p className="font-bold text-slate-800 text-sm mb-1">{point.camera_id}</p>
+                                <p className="text-xs text-slate-600 mb-0.5">Time: {new Date(point.timestamp).toLocaleTimeString()}</p>
+                                <p className="text-xs text-slate-600">Seq: #{idx + 1}</p>
+                              </div>
+                            </Popup>
+                          </Marker>
+                        )
+                      ))}
+                    </MapContainer>
                   </div>
-                ))}
+                ) : (
+                  <div className="h-[350px] flex items-center justify-center bg-slate-800/50 rounded-lg border border-slate-700/50">
+                    <p className="text-sm text-slate-500">No GIS coordinates available for this journey.</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Camera Sequence Timeline */}
+              <div className="space-y-3">
+                <h4 className="text-xs font-semibold text-slate-400 tracking-wider uppercase">Multi-Camera Trajectory Route</h4>
+                
+                <div className="relative pl-6 space-y-6 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-0.5 before:bg-indigo-500/40">
+                  {searchResults.sightings.map((sighting, idx) => (
+                    <div key={sighting.id || idx} className="relative flex flex-col sm:flex-row sm:items-center justify-between bg-dark-panel border border-dark-border rounded-lg p-3 gap-2">
+                      {/* Timeline Marker Dot */}
+                      <div className="absolute -left-[23px] top-4 w-3.5 h-3.5 rounded-full bg-indigo-500 border-2 border-slate-900 ring-2 ring-indigo-500/30"></div>
+
+                      <div className="flex items-center gap-3">
+                        <div className="p-2 bg-slate-800 text-slate-300 rounded">
+                          <MapPin size={18} />
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="font-semibold text-white text-sm">Camera</span>
+                            <span className="text-xs font-mono text-slate-400">({sighting.camera_id})</span>
+                          </div>
+                          <p className="text-xs text-slate-400 flex items-center gap-1 mt-0.5">
+                            <Clock size={12} />
+                            {new Date(sighting.timestamp).toLocaleString()}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="flex items-center gap-2">
+                        <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs px-2 py-0.5 rounded font-mono">
+                          {(sighting.ocr_confidence * 100).toFixed(1)}% Conf.
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
@@ -261,11 +316,10 @@ const ANPR = () => {
           <table className="w-full text-left text-sm text-slate-300">
             <thead className="bg-slate-900/80 text-xs text-slate-400 uppercase border-b border-dark-border">
               <tr>
-                <th className="p-3">Plate Number</th>
-                <th className="p-3">Camera Location</th>
-                <th className="p-3">Vehicle Type</th>
+                <th className="p-3">Plate Text</th>
+                <th className="p-3">Normalized</th>
+                <th className="p-3">Camera ID</th>
                 <th className="p-3">AI Confidence</th>
-                <th className="p-3">Status</th>
                 <th className="p-3">Timestamp</th>
                 <th className="p-3 text-right">Action</th>
               </tr>
@@ -273,7 +327,7 @@ const ANPR = () => {
             <tbody className="divide-y divide-dark-border">
               {plates.length === 0 ? (
                 <tr>
-                  <td colSpan="7" className="p-6 text-center text-slate-500">
+                  <td colSpan="6" className="p-6 text-center text-slate-500">
                     No plate recognition events available.
                   </td>
                 </tr>
@@ -282,36 +336,28 @@ const ANPR = () => {
                   <tr key={plate.id} className="hover:bg-slate-800/40 transition-colors">
                     <td className="p-3">
                       <span className="font-mono text-white font-bold bg-slate-800 px-2.5 py-1 rounded border border-slate-700">
-                        {plate.plate_number}
+                        {plate.plate_text}
+                      </span>
+                    </td>
+                    <td className="p-3">
+                      <span className="font-mono text-slate-300 px-2.5 py-1 rounded">
+                        {plate.normalized_plate}
                       </span>
                     </td>
                     <td className="p-3 font-medium text-slate-200">
-                      {plate.camera_name}
                       <span className="block text-xs font-mono text-slate-500">{plate.camera_id}</span>
                     </td>
-                    <td className="p-3">{plate.vehicle_type}</td>
                     <td className="p-3">
                       <span className="text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-2 py-0.5 rounded font-mono">
-                        {plate.confidence}%
+                        {(plate.ocr_confidence * 100).toFixed(1)}%
                       </span>
-                    </td>
-                    <td className="p-3">
-                      {plate.status === 'FLAGGED' ? (
-                        <span className="bg-rose-500/20 text-rose-400 border border-rose-500/30 text-xs px-2 py-0.5 rounded font-semibold">
-                          FLAGGED
-                        </span>
-                      ) : (
-                        <span className="bg-slate-800 text-slate-400 border border-slate-700 text-xs px-2 py-0.5 rounded">
-                          NORMAL
-                        </span>
-                      )}
                     </td>
                     <td className="p-3 text-xs text-slate-400">
                       {new Date(plate.timestamp).toLocaleString()}
                     </td>
                     <td className="p-3 text-right">
                       <button 
-                        onClick={() => sampleSearch(plate.plate_number)}
+                        onClick={() => sampleSearch(plate.normalized_plate)}
                         className="bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 hover:bg-indigo-600/30 text-xs px-2.5 py-1 rounded transition-colors"
                       >
                         Trace Movement
